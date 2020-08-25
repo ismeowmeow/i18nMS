@@ -1,9 +1,4 @@
-export const state = {
-  locales: ['zh', 'en', 'th'],
-  locale: 'zh'
-}
-
-export const mutations = {
+const mutations = {
   SET_LOCAL(state, locale) {
     if (state.locales.indexOf(locale) !== -1) {
       state.locale = locale
@@ -12,8 +7,4 @@ export const mutations = {
   }
 }
 
-export default {
-  namespaced: true,
-  state,
-  mutations,
-}
+export default mutations

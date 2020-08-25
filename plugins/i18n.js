@@ -18,7 +18,7 @@ export default ({ app, store }) => {
     formatFallbackMessages: true,
     messages: {
       'zh': { ...require('~/locales/zh-CN.json'),  ...zhLocale },
-      'en': { ...require('~/locales/en-US.json') , ...enLocale },
+      'en': { ...require('~/locales/en-US.json'), ...enLocale },
       'th': { ...require('~/locales/th-TH.json'),  ...thLocale },
     }
   });
