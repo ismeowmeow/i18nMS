@@ -100,7 +100,6 @@ export default ({app, $axios, redirect, store}, inject) => {
     errorNotice(message)
     return Promise.reject(error)
   })
-
   // 返回值异常
   $axios.onError(error => {
     console.log(error)
@@ -125,9 +124,20 @@ export default ({app, $axios, redirect, store}, inject) => {
       }
   });
 
+  // https://webpack.js.org/guides/dependency-management/#requirecontext
+  const apisFiles = require.context('../api', true, /\.js$/)
+  // you do not need `import app from './modules/app'`
+  // it will auto require all vuex module from modules file
+  let apis = {}
+  apisFiles.keys().reduce((file, filePath) => {
+    const apiName = filePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+    const value = apisFiles(filePath)
+    apis = Object.assign(value.default($axios), apis)
+  }, {})
+
   // 全局注入 api 列表
   const apiRepository = {
-    ...testApi($axios)
+    ...apis
   }
 
   inject('api', apiRepository);
