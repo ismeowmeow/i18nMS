@@ -23,6 +23,7 @@
           GitHub
         </a>
       </div>
+      <nuxt-link :to="{name: 'secend'}">跳啊跳啊</nuxt-link>
     </div>
   </div>
 </template>

@@ -35,9 +35,6 @@ export default {
   async asyncData({app, $axios, $content}){
     const page = await $content('hello').fetch()
     
-    console.log('app.$api.testapi:', app.$api.testapi)
-
-    console.log('env.NODE_ENV:', env)
     return {
       page
     }
