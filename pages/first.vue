@@ -12,10 +12,12 @@
     <el-button @click="handleChangeLanguage('th')">th</el-button>
     {{$t('test.test')}}
     <el-divider></el-divider>
+    <nuxt-content :document="page"/>
   </div>
 </template>
 
 <script>
+import env from '../env.js'
 import Vue from 'vue'
 export default {
   layout: 'new',
@@ -30,13 +32,15 @@ export default {
       title: this.title,
       }    
   },
-  asyncData(context){
-    // console.log('执行asyncData')
-    // return {
-    //   a: '我不是一个变量了'
-    // }
-    // console.log('因为监听，所以我变化了1')
-    return {}
+  async asyncData({app, $axios, $content}){
+    const page = await $content('hello').fetch()
+    
+    console.log('app.$api.testapi:', app.$api.testapi)
+
+    console.log('env.NODE_ENV:', env)
+    return {
+      page
+    }
   },
   watchQuery: ['title'],
   methods: {
@@ -44,8 +48,11 @@ export default {
       this.a += 1
       this.title += 1
     },
-    handleChangeLanguage(lang) {
+    async handleChangeLanguage(lang) {
       this.$i18n.locale = lang
+
+      const res = await this.$api.testapi()
+      console.log('res:', res)
     }
   }
 }

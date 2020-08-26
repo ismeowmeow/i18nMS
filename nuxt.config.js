@@ -36,7 +36,8 @@ export default {
    */
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/i18n.js'
+    '@/plugins/i18n.js',
+    '@/plugins/axios.js'
   ],
   /*
    ** Auto import components
@@ -59,13 +60,27 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content',
+    '@nuxt/content'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    proxy: true,
+    baseURL: 'http://localhost:4000', // Used as fallback if no runtime config is provided
+  },
+  /*
+   * proxy
+   */
+  proxy: {
+    '/api': {
+      target: 'http://47.105.134.234:5277',
+      pathRewrite: {
+        '^/api' : '/',
+      },
+    },
+  },
   /*
    ** Content module configuration
    ** See https://content.nuxtjs.org/configuration
